@@ -1,0 +1,3 @@
+[submodule "lib/AccelStepperBacklash"]
+	path = lib/AccelStepperBacklash
+	url = https://github.com/marcocipriani01/AccelStepperBacklash
