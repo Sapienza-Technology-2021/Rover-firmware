@@ -1,4 +1,12 @@
-# Da server a Teensy
+# Firmware rover Technology Team
+
+## Organizzazione e algoritmi
+
+Vedi la cartella dei documenti
+
+## Protocollo seriale
+
+#### Da server a Teensy
 
 - Ciao, chi sei? `>C`, risposta corretta `C4b7caa5d-2634-44f3-ad62-5ffb1e08d73f`
 - Avanti di tot metri: `>M[metri]%`
@@ -9,7 +17,7 @@
 - Avanti con rotazione: `>W[metri]%[gradi]%`
 - Stop: `>S`
 
-# Da Teensy a server
+#### Da Teensy a server
 
 Inviati ciclicamente ogni tot millisecondi
 
