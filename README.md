@@ -15,6 +15,8 @@ Vedi la cartella dei documenti
 #### Da server a Teensy
 
 - Ciao, chi sei? `>C`, risposta corretta `C4b7caa5d-2634-44f3-ad62-5ffb1e08d73f`
+- Abilita motori: `>E[1 oppure 0]`
+- Avanti di tot millisecondi: `>T[millisecondi]%`
 - Avanti di tot metri: `>M[metri]%`
 - Avanti tutta fino stop: `>m%`
 - Velocità max motori: `>V[pwm]%`
@@ -22,6 +24,12 @@ Vedi la cartella dei documenti
 - Ruota: `>A[gradi]%`, gradi rispetto al nord [-180°,180°]
 - Avanti con rotazione: `>W[metri]%[gradi]%`
 - Stop: `>S`
+
+Comandi test:
+- `>T15000%`
+- `>S%`
+- `>E1%`
+- `>V200%`
 
 #### Da Teensy a server
 

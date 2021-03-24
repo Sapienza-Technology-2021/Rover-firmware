@@ -105,6 +105,6 @@ float Environment::getTemp(){
 }
 
 float Environment::readbattery() {
-    unsigned int val = analogRead(BATTERYPIN);
+    unsigned int val = analogRead(BATTERY_PIN);
     return float(val)/64;
 }

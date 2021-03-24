@@ -6,11 +6,15 @@ Rover rover(&env);
 void setup() {
     Serial.begin(SERIAL_SPEED);
     Serial.setTimeout(SERIAL_TIMEOUT);
-    env.begin();
+    //env.begin();
+    rover.begin();
+    rover.setMotorsConfig(MOTORS_MIN_SPEED, MOTORS_DEF_ACCEL);
 }
 
 void loop() {
-    if (env.readSensors()) {
+    rover.run();
+
+    /*if (env.readSensors()) {
         double* data = env.getAccel();
         Serial.print('A');
         printArray(data);
@@ -26,23 +30,46 @@ void loop() {
         Serial.print('T');
         Serial.print(temperature, 2);
         Serial.println('%');
-    }
+    }*/
 }
 
 void serialEvent() {
-    while (Serial.available()) {
+    do {
 		if (Serial.read() == '>') {
-			Serial.println("LFoundCmd");
-			switch (Serial.read()) {
+            delay(10);
+            char rcv = Serial.read();
+			Serial.print("LFoundCmd = ");
+			Serial.println(rcv);
+			switch (rcv) {
 			case 'C': {
 				Serial.print("C");
 				Serial.print(UUID);
 				Serial.println();
 				break;
 			}
+
+            case 'E': {
+                rover.setMotorsEnabled(Serial.read() == '1');
+                break;
+            }
+
+            case 'V': {
+                rover.setTargetSpeed(Serial.parseInt());
+                break;
+            }
+
+            case 'T': {
+                rover.moveForMillis(Serial.parseInt());
+                break;
+            }
+
+            case 'S': {
+                rover.brake();
+                break;
+            }
 			}
 		}
-	}
+	} while (Serial.available());
 }
 
 void printArray(double* data) {
