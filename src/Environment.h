@@ -22,12 +22,19 @@ private:
 
 public:
     Environment();
+
     void begin();
+
     float readbattery();
+
     bool readSensors();
-    double* getAccel();
-    double* getGyro();
-    double* getCompass();
+
+    double *getAccel();
+
+    double *getGyro();
+
+    double *getCompass();
+
     float getTemp();
 
 };

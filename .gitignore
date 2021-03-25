@@ -2,4 +2,7 @@
 .clang_complete
 .gcc-flags.json
 .vscode
-src/boards/nik_coli.h
+.idea
+CMakeListsPrivate.txt
+cmake-build-*/
+CMakeLists.txt

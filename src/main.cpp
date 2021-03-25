@@ -35,44 +35,44 @@ void loop() {
 
 void serialEvent() {
     do {
-		if (Serial.read() == '>') {
+        if (Serial.read() == '>') {
             delay(10);
             char rcv = Serial.read();
-			Serial.print("LFoundCmd = ");
-			Serial.println(rcv);
-			switch (rcv) {
-			case 'C': {
-				Serial.print("C");
-				Serial.print(UUID);
-				Serial.println();
-				break;
-			}
+            Serial.print("LFoundCmd = ");
+            Serial.println(rcv);
+            switch (rcv) {
+                case 'C': {
+                    Serial.print("C");
+                    Serial.print(UUID);
+                    Serial.println();
+                    break;
+                }
 
-            case 'E': {
-                rover.setMotorsEnabled(Serial.read() == '1');
-                break;
-            }
+                case 'E': {
+                    rover.setMotorsEnabled(Serial.read() == '1');
+                    break;
+                }
 
-            case 'V': {
-                rover.setTargetSpeed(Serial.parseInt());
-                break;
-            }
+                case 'V': {
+                    rover.setTargetSpeed(Serial.parseInt());
+                    break;
+                }
 
-            case 'T': {
-                rover.moveForMillis(Serial.parseInt());
-                break;
-            }
+                case 'T': {
+                    rover.moveForMillis(Serial.parseInt());
+                    break;
+                }
 
-            case 'S': {
-                rover.brake();
-                break;
+                case 'S': {
+                    rover.brake();
+                    break;
+                }
             }
-			}
-		}
-	} while (Serial.available());
+        }
+    } while (Serial.available());
 }
 
-void printArray(double* data) {
+void printArray(double *data) {
     Serial.print(data[0], 3);
     Serial.print('%');
     Serial.print(data[1], 3);

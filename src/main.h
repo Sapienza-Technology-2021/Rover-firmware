@@ -6,6 +6,6 @@
 #include "Environment.h"
 #include "Rover.h"
 
-void printArray(double* data);
+void printArray(double *data);
 
 #endif

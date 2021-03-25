@@ -13,7 +13,7 @@ void Environment::begin() {
     bool initialized = false;
     while (!initialized) {
         imu.begin(Wire, 1);
-        if (imu.status == ICM_20948_Stat_Ok){
+        if (imu.status == ICM_20948_Stat_Ok) {
             Serial.println("LIMU ok");
             initialized = true;
         } else {
@@ -58,8 +58,8 @@ bool Environment::readSensors() {
     return updated;
 }
 
-double* Environment::getAccel(){
-    double* result = new double[3];
+double *Environment::getAccel() {
+    double *result = new double[3];
     if (imuReady) {
         result[0] = imuFinalMatrix[0][0];
         result[1] = imuFinalMatrix[0][1];
@@ -72,8 +72,8 @@ double* Environment::getAccel(){
     return result;
 }
 
-double* Environment::getGyro(){
-    double* result = new double[3];
+double *Environment::getGyro() {
+    double *result = new double[3];
     if (imuReady) {
         result[0] = imuFinalMatrix[1][0];
         result[1] = imuFinalMatrix[1][1];
@@ -86,8 +86,8 @@ double* Environment::getGyro(){
     return result;
 }
 
-double* Environment::getCompass(){
-    double* result = new double[3];
+double *Environment::getCompass() {
+    double *result = new double[3];
     if (imuReady) {
         result[0] = imuFinalMatrix[2][0];
         result[1] = imuFinalMatrix[2][1];
@@ -100,11 +100,11 @@ double* Environment::getCompass(){
     return result;
 }
 
-float Environment::getTemp(){
+float Environment::getTemp() {
     return imuReady ? temperature : INVALID_VALUE;
 }
 
 float Environment::readbattery() {
     unsigned int val = analogRead(BATTERY_PIN);
-    return float(val)/64;
+    return float(val) / 64;
 }

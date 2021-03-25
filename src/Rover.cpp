@@ -1,6 +1,6 @@
 #include "Rover.h"
 
-Rover::Rover(Environment *environment){
+Rover::Rover(Environment *environment) {
     env = environment;
     leftMot = new AccelDC(LEFT_MOT_IN1, LEFT_MOT_IN2, LEFT_MOT_EN);
     //rightMot = new AccelDC();
