@@ -1,13 +1,14 @@
 #ifndef ROVER_H
 #define ROVER_H
 
-#include <Arduino.h>
 #include <AccelDC.h>
+#include <Arduino.h>
+
 #include "Environment.h"
 #include "config.h"
 
 class Rover {
-public:
+   public:
     Rover(Environment *environment);
 
     void begin();
@@ -26,10 +27,10 @@ public:
 
     bool run();
 
-private:
+   private:
     Environment *env;
     AccelDC *leftMot;
-    //AccelDC *rightMot;
+    // AccelDC *rightMot;
 };
 
 #endif

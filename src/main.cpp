@@ -6,7 +6,7 @@ Rover rover(&env);
 void setup() {
     Serial.begin(SERIAL_SPEED);
     Serial.setTimeout(SERIAL_TIMEOUT);
-    //env.begin();
+    // env.begin();
     rover.begin();
     rover.setMotorsConfig(MOTORS_MIN_SPEED, MOTORS_DEF_ACCEL);
 }

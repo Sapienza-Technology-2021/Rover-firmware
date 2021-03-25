@@ -2,7 +2,3 @@
 .clang_complete
 .gcc-flags.json
 .vscode
-.idea
-CMakeListsPrivate.txt
-cmake-build-*/
-CMakeLists.txt

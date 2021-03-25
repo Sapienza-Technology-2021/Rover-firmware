@@ -30,21 +30,22 @@ bool Environment::readSensors() {
     unsigned long t = millis();
     if ((t - lastIMURead >= IMU_READ_INTERVAL) && imu.dataReady()) {
         imu.getAGMT();
-        imuMatrix[0][0] += (double) imu.accX();
-        imuMatrix[0][1] += (double) imu.accY();
-        imuMatrix[0][2] += (double) imu.accZ();
-        imuMatrix[1][0] += (double) imu.gyrX();
-        imuMatrix[1][1] += (double) imu.gyrY();
-        imuMatrix[1][2] += (double) imu.gyrZ();
-        imuMatrix[2][0] += (double) imu.magX();
-        imuMatrix[2][1] += (double) imu.magY();
-        imuMatrix[2][2] += (double) imu.magZ();
+        imuMatrix[0][0] += (double)imu.accX();
+        imuMatrix[0][1] += (double)imu.accY();
+        imuMatrix[0][2] += (double)imu.accZ();
+        imuMatrix[1][0] += (double)imu.gyrX();
+        imuMatrix[1][1] += (double)imu.gyrY();
+        imuMatrix[1][2] += (double)imu.gyrZ();
+        imuMatrix[2][0] += (double)imu.magX();
+        imuMatrix[2][1] += (double)imu.magY();
+        imuMatrix[2][2] += (double)imu.magZ();
         temperature = imu.temp();
         imuIntegrationCount++;
         if (imuIntegrationCount == IMU_INTEGRATION_COUNT) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    imuFinalMatrix[i][j] = imuMatrix[i][j] / IMU_INTEGRATION_COUNT;
+                    imuFinalMatrix[i][j] =
+                        imuMatrix[i][j] / IMU_INTEGRATION_COUNT;
                     imuMatrix[i][j] = 0;
                 }
             }
@@ -54,7 +55,7 @@ bool Environment::readSensors() {
         lastIMURead = t;
         updated = true;
     }
-    //TODO: leggi altri sensori
+    // TODO: leggi altri sensori
     return updated;
 }
 
@@ -100,9 +101,7 @@ double *Environment::getCompass() {
     return result;
 }
 
-float Environment::getTemp() {
-    return imuReady ? temperature : INVALID_VALUE;
-}
+float Environment::getTemp() { return imuReady ? temperature : INVALID_VALUE; }
 
 float Environment::readbattery() {
     unsigned int val = analogRead(BATTERY_PIN);
