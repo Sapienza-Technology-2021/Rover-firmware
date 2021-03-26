@@ -66,13 +66,12 @@ bool Environment::readIMU() {
 bool Environment::readDistances() {
     unsigned long t = millis();
     if (t - lastDistRead >= DIST_READ_INTERVAL) {
-        long distance;
         digitalWrite(DIST_SENS1_TRIG, LOW);
         delayMicroseconds(2);
         digitalWrite(DIST_SENS1_TRIG, HIGH);
         delayMicroseconds(10);
         digitalWrite(DIST_SENS1_TRIG, LOW);
-        distance1 = pulseIn(DIST_SENS1_ECHO, HIGH) * 0.034 / 2.0;
+        distance1 = pulseIn(DIST_SENS1_ECHO, HIGH) * 0.017;
         lastDistRead = t;
         return true;
     }
