@@ -4,10 +4,11 @@ Environment::Environment() {
     lastIMURead = 0;
     imuIntegrationCount = 0;
     imuReady = false;
-    temperature = 0.0;
+    temperature = distance1 = 0.0;
 }
 
 void Environment::begin() {
+#if ENABLE_IMU == true
     Wire.begin();
     Wire.setClock(400000);
     bool initialized = false;
@@ -21,12 +22,15 @@ void Environment::begin() {
             delay(500);
         }
     }
+#endif
+    pinMode(DIST_SENS1_TRIG, OUTPUT);
+    pinMode(DIST_SENS1_ECHO, INPUT);
 }
 
-bool Environment::readSensors() {
+bool Environment::readIMU() {
     // Adesso filtra i dati con una media di tre valori
     // TODO: provare altri filtri, come passa-basso e Kalman
-    bool updated = false;
+#if ENABLE_IMU == true
     unsigned long t = millis();
     if ((t - lastIMURead >= IMU_READ_INTERVAL) && imu.dataReady()) {
         imu.getAGMT();
@@ -53,11 +57,29 @@ bool Environment::readSensors() {
             imuReady = true;
         }
         lastIMURead = t;
-        updated = true;
+        return true;
     }
-    // TODO: leggi altri sensori
-    return updated;
+#endif
+    return false;
 }
+
+bool Environment::readDistances() {
+    unsigned long t = millis();
+    if (t - lastDistRead >= DIST_READ_INTERVAL) {
+        long distance;
+        digitalWrite(DIST_SENS1_TRIG, LOW);
+        delayMicroseconds(2);
+        digitalWrite(DIST_SENS1_TRIG, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(DIST_SENS1_TRIG, LOW);
+        distance1 = pulseIn(DIST_SENS1_ECHO, HIGH) * 0.034 / 2.0;
+        lastDistRead = t;
+        return true;
+    }
+    return false;
+}
+
+double Environment::getDistance1() { return distance1; }
 
 double *Environment::getAccel() {
     double *result = new double[3];

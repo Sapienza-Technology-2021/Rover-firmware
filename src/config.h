@@ -4,7 +4,13 @@
 #define SERIAL_SPEED 115200
 #define SERIAL_TIMEOUT 100
 #define UUID "4b7caa5d-2634-44f3-ad62-5ffb1e08d73f"
+
 #define BATTERY_PIN 10
+
+#define ENABLE_IMU false
+
+#define DIST_SENS1_TRIG 7
+#define DIST_SENS1_ECHO 6
 
 #define MOTORS_DEF_ACCEL 0.005
 #define MOTORS_MIN_SPEED 25

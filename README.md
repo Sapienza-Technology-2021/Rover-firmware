@@ -35,9 +35,10 @@ Comandi test:
 
 Inviati ciclicamente ogni tot millisecondi
 
-- Accelerometro: `A[x]%[y]%[z]%`
-- Giroscopio: `G[x]%[y]%[z]%`
-- Magnetometro: `M[x]%[y]%[z]%`
-- Temperatura: `T[gradi]%`
+- Accelerometro: `A[x]%[y]%[z]`
+- Giroscopio: `G[x]%[y]%[z]`
+- Magnetometro: `M[x]%[y]%[z]`
+- Temperatura: `T[gradi]`
+- Distanza: `D[distanza cm]`
 - Batteria: `B[volt]%`
 - Log: qualunque cosa che inizia con `L`

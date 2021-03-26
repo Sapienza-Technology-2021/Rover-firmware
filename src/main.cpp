@@ -6,7 +6,7 @@ Rover rover(&env);
 void setup() {
     Serial.begin(SERIAL_SPEED);
     Serial.setTimeout(SERIAL_TIMEOUT);
-    // env.begin();
+    env.begin();
     rover.begin();
     rover.setMotorsConfig(MOTORS_MIN_SPEED, MOTORS_DEF_ACCEL);
 }
@@ -14,23 +14,22 @@ void setup() {
 void loop() {
     rover.run();
 
-    /*if (env.readSensors()) {
-        double* data = env.getAccel();
+    if (env.readDistances()) {
+        Serial.print('D');
+        Serial.println(env.getDistance1());
+    }
+    if (env.readIMU()) {
         Serial.print('A');
-        printArray(data);
+        printArray(env.getAccel());
         Serial.print('%');
-        data = env.getGyro();
         Serial.print('G');
-        printArray(data);
+        printArray(env.getGyro());
         Serial.print('%');
-        data = env.getCompass();
         Serial.print('M');
-        printArray(data);
-        float temperature = env.getTemp();
+        printArray(env.getCompass());
         Serial.print('T');
-        Serial.print(temperature, 2);
-        Serial.println('%');
-    }*/
+        Serial.println(env.getTemp(), 2);
+    }
 }
 
 void serialEvent() {
@@ -77,6 +76,5 @@ void printArray(double *data) {
     Serial.print('%');
     Serial.print(data[1], 3);
     Serial.print('%');
-    Serial.print(data[2], 3);
-    Serial.println('%');
+    Serial.println(data[2], 3);
 }

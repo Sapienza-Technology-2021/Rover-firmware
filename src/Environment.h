@@ -11,15 +11,19 @@
 #define IMU_INTEGRATION_COUNT 3
 #define INVALID_VALUE (0.0 / 0.0)
 
+#define DIST_READ_INTERVAL 400
+
 class Environment {
    private:
     ICM_20948_I2C imu;
+    unsigned long lastDistRead;
     unsigned long lastIMURead;
     uint8_t imuIntegrationCount;
     float temperature;
     bool imuReady;
     double imuMatrix[3][3];
     double imuFinalMatrix[3][3];
+    double distance1;
 
    public:
     Environment();
@@ -28,7 +32,9 @@ class Environment {
 
     float readbattery();
 
-    bool readSensors();
+    bool readIMU();
+
+    bool readDistances();
 
     double *getAccel();
 
@@ -37,6 +43,8 @@ class Environment {
     double *getCompass();
 
     float getTemp();
+
+    double getDistance1();
 };
 
 #endif
