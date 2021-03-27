@@ -58,7 +58,16 @@ void serialEvent() {
                 }
 
                 case 'T': {
-                    rover.moveForMillis(Serial.parseInt());
+                    long ms = Serial.parseInt();
+                    if (ms > 0) {
+                        rover.setBackwards(false);
+                        rover.moveForMillis(ms);
+                    } else if (ms < 0) {
+                        rover.setBackwards(true);
+                        rover.moveForMillis(-ms);
+                    } else {
+                        rover.brake();
+                    }
                     break;
                 }
 
