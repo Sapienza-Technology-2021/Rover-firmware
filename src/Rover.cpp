@@ -49,3 +49,5 @@ void Rover::brake() {
 }
 
 bool Rover::run() { return (leftMot->run()) /*|| (rightMot->run())*/; }
+
+double Rover::getTargetHeading() { return 0; }

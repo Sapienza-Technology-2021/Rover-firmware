@@ -2,6 +2,7 @@
 #define ENVIRONMENT_H
 
 #include <Arduino.h>
+#include <math.h>
 
 #include "config.h"
 // IMU library: https://github.com/sparkfun/SparkFun_ICM-20948_ArduinoLibrary
@@ -12,6 +13,8 @@
 #define INVALID_VALUE (0.0 / 0.0)
 
 #define DIST_READ_INTERVAL 400
+
+#define MAGNETIC_DECLINATION 0.0
 
 class Environment {
    private:
@@ -40,7 +43,7 @@ class Environment {
 
     double *getGyro();
 
-    double *getCompass();
+    double getCompass();
 
     float getTemp();
 

@@ -48,8 +48,7 @@ bool Environment::readIMU() {
         if (imuIntegrationCount == IMU_INTEGRATION_COUNT) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    imuFinalMatrix[i][j] =
-                        imuMatrix[i][j] / IMU_INTEGRATION_COUNT;
+                    imuFinalMatrix[i][j] = imuMatrix[i][j] / IMU_INTEGRATION_COUNT;
                     imuMatrix[i][j] = 0;
                 }
             }
@@ -59,8 +58,21 @@ bool Environment::readIMU() {
         lastIMURead = t;
         return true;
     }
-#endif
     return false;
+#else
+    unsigned long t = millis();
+    if (t - lastIMURead >= 2000) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                imuFinalMatrix[i][j] = random(-10, 10);
+            }
+        }
+        imuReady = true;
+        lastIMURead = t;
+        return true;
+    }
+    return false;
+#endif
 }
 
 bool Environment::readDistances() {
@@ -108,18 +120,17 @@ double *Environment::getGyro() {
     return result;
 }
 
-double *Environment::getCompass() {
-    double *result = new double[3];
+double Environment::getCompass() {
     if (imuReady) {
-        result[0] = imuFinalMatrix[2][0];
-        result[1] = imuFinalMatrix[2][1];
-        result[2] = imuFinalMatrix[2][2];
-    } else {
-        result[0] = INVALID_VALUE;
-        result[1] = INVALID_VALUE;
-        result[2] = INVALID_VALUE;
+        double heading = atan2(imuFinalMatrix[2][1], imuFinalMatrix[2][0]);
+        double twoPi = 2 * PI;
+        if (heading < 0)
+            heading += twoPi;
+        else if (heading > twoPi)
+            heading -= twoPi;
+        return (heading * 180.0 / PI) + MAGNETIC_DECLINATION;
     }
-    return result;
+    return INVALID_VALUE;
 }
 
 float Environment::getTemp() { return imuReady ? temperature : INVALID_VALUE; }

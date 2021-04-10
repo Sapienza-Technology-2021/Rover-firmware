@@ -27,6 +27,8 @@ class Rover {
 
     bool run();
 
+    double getTargetHeading();
+
    private:
     Environment *env;
     AccelDC *leftMot;

@@ -21,12 +21,12 @@ void loop() {
     if (env.readIMU()) {
         Serial.print('A');
         printArray(env.getAccel());
-        Serial.print('%');
         Serial.print('G');
         printArray(env.getGyro());
-        Serial.print('%');
         Serial.print('M');
-        printArray(env.getCompass());
+        Serial.print(env.getCompass());
+        Serial.print('%');
+        Serial.println(rover.getTargetHeading());
         Serial.print('T');
         Serial.println(env.getTemp(), 2);
     }
