@@ -10,6 +10,10 @@
 
 Vedi la cartella dei documenti
 
+## Strumenti di sviluppo
+
+Per compilare e caricare il firmware bisogna utilizzare [Visual Studio Code](https://code.visualstudio.com/) con l'estensione [PlatformIO](https://platformio.org/).
+
 ## Protocollo seriale
 
 #### Da server a Teensy
