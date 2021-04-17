@@ -39,9 +39,9 @@ class Environment {
 
     bool readDistances();
 
-    double *getAccel();
+    bool getAccel(double array[]);
 
-    double *getGyro();
+    bool getGyro(double array[]);
 
     double getCompass();
 

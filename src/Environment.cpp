@@ -54,9 +54,10 @@ bool Environment::readIMU() {
             }
             imuIntegrationCount = 0;
             imuReady = true;
+            return true;
         }
         lastIMURead = t;
-        return true;
+        return false;
     }
     return false;
 #else
@@ -92,32 +93,26 @@ bool Environment::readDistances() {
 
 double Environment::getDistance1() { return distance1; }
 
-double *Environment::getAccel() {
-    double *result = new double[3];
+bool Environment::getAccel(double array[]) {
     if (imuReady) {
-        result[0] = imuFinalMatrix[0][0];
-        result[1] = imuFinalMatrix[0][1];
-        result[2] = imuFinalMatrix[0][2];
+        array[0] = imuFinalMatrix[0][0];
+        array[1] = imuFinalMatrix[0][1];
+        array[2] = imuFinalMatrix[0][2];
+        return true;
     } else {
-        result[0] = INVALID_VALUE;
-        result[1] = INVALID_VALUE;
-        result[2] = INVALID_VALUE;
+        return false;
     }
-    return result;
 }
 
-double *Environment::getGyro() {
-    double *result = new double[3];
+bool Environment::getGyro(double array[]) {
     if (imuReady) {
-        result[0] = imuFinalMatrix[1][0];
-        result[1] = imuFinalMatrix[1][1];
-        result[2] = imuFinalMatrix[1][2];
+        array[0] = imuFinalMatrix[1][0];
+        array[1] = imuFinalMatrix[1][1];
+        array[2] = imuFinalMatrix[1][2];
+        return true;
     } else {
-        result[0] = INVALID_VALUE;
-        result[1] = INVALID_VALUE;
-        result[2] = INVALID_VALUE;
+        return false;
     }
-    return result;
 }
 
 double Environment::getCompass() {

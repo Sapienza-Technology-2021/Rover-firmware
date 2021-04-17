@@ -2,6 +2,7 @@
 
 Environment env;
 Rover rover(&env);
+double sensorBuffer[3];
 
 void setup() {
     Serial.begin(SERIAL_SPEED);
@@ -19,16 +20,26 @@ void loop() {
         Serial.println(env.getDistance1());
     }
     if (env.readIMU()) {
-        Serial.print('A');
-        printArray(env.getAccel());
-        Serial.print('G');
-        printArray(env.getGyro());
-        Serial.print('M');
-        Serial.print(env.getCompass());
-        Serial.print('%');
-        Serial.println(rover.getTargetHeading());
-        Serial.print('T');
-        Serial.println(env.getTemp(), 2);
+        if (env.getAccel(sensorBuffer)) {
+            Serial.print('A');
+            printArray(sensorBuffer);
+        }
+        if (env.getGyro(sensorBuffer)) {
+            Serial.print('G');
+            printArray(sensorBuffer);
+        }
+        double tmp = env.getCompass();
+        if (!isnan(tmp)) {
+            Serial.print('M');
+            Serial.print(tmp);
+            Serial.print('%');
+            Serial.println(rover.getTargetHeading());
+        }
+        tmp = env.getTemp();
+        if (!isnan(tmp)) {
+            Serial.print('T');
+            Serial.println(env.getTemp(), 2);
+        }
     }
 }
 
@@ -80,7 +91,7 @@ void serialEvent() {
     } while (Serial.available());
 }
 
-void printArray(double *data) {
+void printArray(double data[]) {
     Serial.print(data[0], 3);
     Serial.print('%');
     Serial.print(data[1], 3);
