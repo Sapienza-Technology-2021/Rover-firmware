@@ -5,8 +5,19 @@
 #include <math.h>
 
 #include "config.h"
+
+#if IMU_TYPE == 1
+#include <Wire.h>
+// IMU library: https://github.com/adafruit/Adafruit_LSM303DLHC
+#include <Adafruit_Sensor.h>
+#include <Adafruit_LSM303_U.h>
+#include <Adafruit_L3GD20_U.h>
+#include <Adafruit_BMP085_U.h>
+#elif IMU_TYPE == 2
+#include <Wire.h>
 // IMU library: https://github.com/sparkfun/SparkFun_ICM-20948_ArduinoLibrary
-#include "ICM_20948.h"
+#include <ICM_20948.h>
+#endif
 
 #define IMU_READ_INTERVAL 100
 #define IMU_INTEGRATION_COUNT 3
@@ -18,7 +29,14 @@
 
 class Environment {
    private:
+#if IMU_TYPE == 1
+    Adafruit_LSM303_Accel_Unified imuAccel = Adafruit_LSM303_Accel_Unified(10000);
+    Adafruit_LSM303_Mag_Unified imuMag = Adafruit_LSM303_Mag_Unified(10001);
+    Adafruit_L3GD20_Unified imuGyro = Adafruit_L3GD20_Unified(10002);
+    Adafruit_BMP085_Unified imuBmp = Adafruit_BMP085_Unified(10003);
+#elif IMU_TYPE == 2
     ICM_20948_I2C imu;
+#endif
     unsigned long lastDistRead;
     unsigned long lastIMURead;
     uint8_t imuIntegrationCount;

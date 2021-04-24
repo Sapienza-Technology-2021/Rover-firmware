@@ -7,7 +7,10 @@
 
 #define BATTERY_PIN 10
 
-#define ENABLE_IMU false
+// 0 = dummy
+// 1 = Adafruit 10 DoF LSM303DLHC+L3GD20+BMP180
+// 2 = SparkFun ICM20948
+#define IMU_TYPE 1
 
 #define DIST_SENS1_TRIG 7
 #define DIST_SENS1_ECHO 6
