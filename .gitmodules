@@ -1,6 +1,0 @@
-[submodule "lib/AccelStepperBacklash"]
-	path = lib/AccelStepperBacklash
-	url = https://github.com/marcocipriani01/AccelStepperBacklash
-[submodule "lib/AccelDC"]
-	path = lib/AccelDC
-	url = https://github.com/marcocipriani01/AccelDC
